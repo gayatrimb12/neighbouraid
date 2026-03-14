@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>NeighborAid Demo</title>
+
+<style>
+
+body{
+font-family: Arial;
+margin:0;
+background:#eef1f5;
+}
+
+header{
+background:#2d6cdf;
+color:white;
+padding:20px;
+text-align:center;
+font-size:26px;
+}
+
+nav{
+background:#ffffff;
+padding:10px;
+text-align:center;
+border-bottom:1px solid #ddd;
+}
+
+nav button{
+margin:5px;
+padding:10px 18px;
+border:none;
+border-radius:6px;
+background:#2d6cdf;
+color:white;
+cursor:pointer;
+}
+
+.container{
+max-width:950px;
+margin:auto;
+padding:25px;
+}
+
+.card{
+background:white;
+padding:20px;
+margin-bottom:20px;
+border-radius:10px;
+box-shadow:0 2px 8px rgba(0,0,0,0.08);
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+}
+
+.task{
+background:#f7f9fc;
+padding:18px;
+border-radius:8px;
+cursor:pointer;
+}
+
+.task:hover{
+background:#e8eefc;
+}
+
+.helper{
+padding:10px 0;
+border-bottom:1px solid #ddd;
+}
+
+.activity{
+padding:8px;
+border-bottom:1px solid #eee;
+font-size:14px;
+}
+
+.hidden{
+display:none;
+}
+
+.success{
+background:#dff5e4;
+padding:12px;
+border-radius:6px;
+margin-top:10px;
+}
+
+</style>
+
+<script>
+
+let activityLog = []
+
+function showView(view){
+
+document.getElementById("seniorView").classList.add("hidden")
+document.getElementById("familyView").classList.add("hidden")
+
+document.getElementById(view).classList.remove("hidden")
+
+}
+
+function requestTask(task){
+
+let message = "Request sent for: " + task
+
+document.getElementById("confirm").innerHTML = message
+document.getElementById("confirm").style.display="block"
+
+let time = new Date().toLocaleTimeString()
+
+activityLog.push(task + " requested at " + time)
+
+updateActivity()
+
+}
+
+function updateActivity(){
+
+let list = document.getElementById("activityList")
+
+list.innerHTML=""
+
+activityLog.forEach(function(item){
+
+let div = document.createElement("div")
+
+div.className="activity"
+
+div.innerText=item
+
+list.appendChild(div)
+
+})
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<header>
+NeighborAid – Community Support Network
+</header>
+
+<nav>
+
+<button onclick="showView('seniorView')">
+Senior View
+</button>
+
+<button onclick="showView('familyView')">
+Family Dashboard
+</button>
+
+</nav>
+
+<div class="container">
+
+<!-- SENIOR VIEW -->
+
+<div id="seniorView">
+
+<div class="card">
+
+<h2>Request Help</h2>
+
+<p>Select a task you need help with.</p>
+
+<div class="grid">
+
+<div class="task" onclick="requestTask('Grocery Pickup')">
+🛒 Grocery Pickup
+</div>
+
+<div class="task" onclick="requestTask('Ride to Appointment')">
+🚗 Ride to Appointment
+</div>
+
+<div class="task" onclick="requestTask('Home Help')">
+🏠 Home Help
+</div>
+
+<div class="task" onclick="requestTask('Technology Help')">
+💻 Technology Help
+</div>
+
+</div>
+
+<div id="confirm" class="success" style="display:none"></div>
+
+</div>
+
+<div class="card">
+
+<h2>Available Helpers Nearby</h2>
+
+<div class="helper">
+Maria L. – Community Volunteer
+</div>
+
+<div class="helper">
+James R. – Transportation Support
+</div>
+
+<div class="helper">
+Sarah T. – Technology Assistance
+</div>
+
+</div>
+
+</div>
+
+
+<!-- FAMILY DASHBOARD -->
+
+<div id="familyView" class="hidden">
+
+<div class="card">
+
+<h2>Family Monitoring Dashboard</h2>
+
+<p>
+Family members can see recent help requests from their loved ones.
+</p>
+
+<div id="activityList">
+
+<div class="activity">
+No requests yet
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Status</h2>
+
+<p>All helpers are verified community volunteers.</p>
+
+<p>Notifications are sent when new requests appear.</p>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>
